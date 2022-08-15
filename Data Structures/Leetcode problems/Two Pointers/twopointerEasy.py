@@ -217,39 +217,56 @@ twoSum(numbers,target)
 
 
 """
-167. Two Sum II - Input Array Is Sorted
+15. 3Sum
 
-    Like Two sum bunt alrady sorted. Also it's using 1-indexed arrays
-Example:
-      Input: numbers = [2,7,11,15], target = 9
-    Output: [1,2]
-    Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+
 
 Edge Caes:
-    So we need to return our value by 1 because it's using 1 indexed arrays
-    It can contain negatives
-    If it's empty return False
+    No duplicates
+    Return three numbers
 
 
 Methadology:
     -This is a two pointer approach because we have to add two diffrent numbers. Thinking of doing a left and right pointer.
+        -gotta make sure to do continue if we get duplicates
         -Also, Since it's sorted descending order. We can check if the sum is greater, make the right pointer smaller. If sum is too small, make the left pointer smaller
     
    
 
 
 Lessons Learned: 
-    Great job on this one. But remember to look back at your edge cases like knowing this goes off the 1 index.
+    Very similar to last two sum questions. Just make sure to watch out for the edge cases
 
     
 
 
 
-RUN TIME OF PROGRAM= It would be O(N), were just using one loop and moving them left/right
+RUN TIME OF PROGRAM= It would be O(N^2), 2 loops
 Space Complexity O(1), no extra space needed
 
 """   
 
 
-def threeSum(numArr, target):
-    pass
+def threeSum(nums):
+        res = []
+        nums.sort()
+
+        for i, a in enumerate(nums):
+            if i > 0 and a == nums[i - 1]:
+                continue
+
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                threeSum = a + nums[l] + nums[r]
+                if threeSum > 0:
+                    r -= 1
+                elif threeSum < 0:
+                    l += 1
+                else:
+                    res.append([a, nums[l], nums[r]])
+                    l += 1
+                    while nums[l] == nums[l - 1] and l < r:
+                        l += 1
+        return res
+
+
